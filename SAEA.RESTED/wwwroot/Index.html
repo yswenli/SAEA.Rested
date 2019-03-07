@@ -16,13 +16,13 @@
                     <div class="panel-heading">
                         <h1>SAEA.RESTED <small>基于SAEA.MVC的HttpTool</small></h1>
                     </div>
-                    <div class="panel-body">
+                    <div class="panel-body" style="max-height:780px;overflow:auto;">
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <select class="form-control">
-                                        <option>GET</option>
-                                        <option>POST</option>
+                                    <select class="form-control" id="">
+                                        <option value="GET">GET</option>
+                                        <option value="POST">POST</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
@@ -37,7 +37,7 @@
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="10" style="resize:none;"  placeholder="请求Header">Host: www.baidu.com
+                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="请求Header">Host: www.baidu.com
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
@@ -47,31 +47,92 @@ Cookie: BAIDUID=33BFF77D443BDCBFA6DDC43EDBA3E9B1:FG=1; BIDUPSID=33BFF77D443BDCBF
 Upgrade-Insecure-Requests: 1
 Cache-Control: max-age=0</textarea>
                                 </div>
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="回复Header" readonly="readonly"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="回复内容" readonly="readonly"></textarea>
+                                </div>
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-download-alt"></span> 保存到列表</button>
+                                </div>
                             </div>
                         </div>
                         <div class="col-md-4">
-                            <div class="list-group">
-                                <a href="#" class="list-group-item active">
-                                    <h4 class="list-group-item-heading">List group item heading</h4>
-                                    <p class="list-group-item-text">...</p>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <h4 class="list-group-item-heading">List group item heading</h4>
-                                    <p class="list-group-item-text">...</p>
-                                </a>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> 导入</button>
+                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-upload"></span> 导出</button>
+                                </div>
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <h4 class="panel-title">
+                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                        Collapsible Group Item #1
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingTwo">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                        Collapsible Group Item #2
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingThree">
+                                                <h4 class="panel-title">
+                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                                        Collapsible Group Item #3
+                                                    </a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
+                                                <div class="panel-body">
+                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="panel-footer text-right">
-                        <a href="https://github.com/yswenli/SAEA.Rested/releases">https://github.com/yswenli/SAEA.Rested/releases</a>
-                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="https://github.com/yswenli/SAEA.Rested/releases">https://github.com/yswenli/SAEA.Rested/releases</a>
                 </div>
             </div>
-
         </div>
     </div>
-
+    <script src="https://v3.bootcss.com/assets/js/vendor/jquery.min.js"></script>
     <script src="content/js/bootstrap.min.js"></script>
-
 </body>
 </html>
