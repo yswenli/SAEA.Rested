@@ -20,16 +20,16 @@
                         <div class="col-md-8">
                             <div class="row">
                                 <div class="col-md-2">
-                                    <select class="form-control" id="">
+                                    <select class="form-control" id="methodSel">
                                         <option value="GET">GET</option>
                                         <option value="POST">POST</option>
                                     </select>
                                 </div>
                                 <div class="col-md-10">
                                     <div class="input-group">
-                                        <input type="text" class="form-control" placeholder="https://www.baidu.com/" />
+                                        <input id="urlTxt" type="text" class="form-control" placeholder="https://www.baidu.com/" />
                                         <span class="input-group-btn">
-                                            <button class="btn btn-default" type="button">Go!</button>
+                                            <button id="runBtn" class="btn btn-primary" type="button">Go!</button>
                                         </span>
                                     </div>
                                 </div>
@@ -37,7 +37,7 @@
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="请求Header">Host: www.baidu.com
+                                    <textarea id="headerTxt" class="form-control" rows="10" style="resize:none;" placeholder="请求Header">Host: www.baidu.com
 User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
 Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
@@ -51,27 +51,28 @@ Cache-Control: max-age=0</textarea>
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="回复Header" readonly="readonly"></textarea>
+                                    <textarea id="reHeaderTxt" class="form-control" rows="10" style="resize:none;" placeholder="回复Header" readonly="readonly"></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea class="form-control" rows="10" style="resize:none;" placeholder="回复内容" readonly="readonly"></textarea>
+                                    <textarea id="reTxt" class="form-control" rows="10" style="resize:none;" placeholder="回复内容" readonly="readonly"></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-download-alt"></span> 保存到列表</button>
+                                    <button id="saveBtn" type="button" class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-download-alt"></span> 保存到列表</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-download"></span> 导入</button>
-                                    <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-upload"></span> 导出</button>
+                                    <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
+                                    <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-download"></span> 导入</button>
+                                    <button id="exportBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#exportModal"><span class="glyphicon glyphicon-upload"></span> 导出</button>
                                 </div>
                                 <div class="col-md-12">
                                     <p></p>
@@ -81,14 +82,29 @@ Cache-Control: max-age=0</textarea>
                                         <div class="panel panel-default">
                                             <div class="panel-heading" role="tab" id="headingOne">
                                                 <h4 class="panel-title">
+
                                                     <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                                         Collapsible Group Item #1
                                                     </a>
+                                                    <a class="text-right glyphicon glyphicon-cog"></a>
+                                                    <a class="text-right glyphicon glyphicon-trash" data-toggle="modal" data-target="#deleteModal"></a>
                                                 </h4>
+                                                <div class="input-group">
+                                                    <input type="text" class="form-control" placeholder="https://www.baidu.com/" />
+                                                    <span class="input-group-btn">
+                                                        <button id="runBtn" class="btn btn-default" type="button">
+                                                            <span class="glyphicon glyphicon-ok"></span>
+                                                        </button>
+                                                    </span>
+                                                </div>
                                             </div>
                                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                 <div class="panel-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
+                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
+                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
+                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
+                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -127,7 +143,79 @@ Cache-Control: max-age=0</textarea>
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <a href="https://github.com/yswenli/SAEA.Rested/releases">https://github.com/yswenli/SAEA.Rested/releases</a>
+                    <a href="https://github.com/yswenli/SAEA.Rested/releases">下载地址：https://github.com/yswenli/saea.rested/releases</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="exportModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
