@@ -1,0 +1,98 @@
+﻿body {
+    background-image: linear-gradient(45deg,#f5f5f5 25%,#ffffff 0,#ffffff 50%,#f5f5f5 0,#f5f5f5 75%,#ffffff 0);
+    background-size: 10px 10px;
+}
+
+.panel {
+    margin-bottom: 2px;
+}
+
+#markImg {
+    display: inline-block;
+    width: 38px;
+    height: 38px;
+    position: relative;
+    top: 2px;
+}
+
+    #markImg img {
+        width: 38px;
+        border: solid 2px #4bacff;
+        border-radius: 19px;
+        position: relative;
+        top: -4px;
+    }
+
+@-webkit-keyframes rotation {
+
+    from {
+        -webkit-transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+#markImg:hover {
+    -webkit-transform: rotate(360deg);
+    animation: rotation 1s linear infinite;
+    -moz-animation: rotation 1s linear infinite;
+    -webkit-animation: rotation 1s linear infinite;
+    -o-animation: rotation 1s linear infinite;
+}
+
+.panel-body .right-list {
+    height: 770px;
+    overflow: auto;
+}
+
+.search-div-1 {
+    padding-right: 3px;
+}
+
+.search-div-2 {
+    padding-left: 0px;
+}
+
+
+.list-item {
+    display: block;
+    height: 46px;
+    width: 100%;
+    border-radius: 5px;
+    background-color: #eae8e8;
+    border: solid 1px #e1dfdf;
+    margin-bottom: 10px;
+    line-height: 36px;
+    padding: 5px 5px 5px 15px;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+    transition: border-color ease-in-out .45s, box-shadow ease-in-out .45s,background-color ease-in-out .45s, box-shadow ease-in-out .45s;
+}
+
+    .list-item:hover {
+        background-color: #ffffff;
+        border: solid 1px #000c92;
+    }
+
+.panel-footer {
+    border-radius: 7px;
+}
+
+.panel-body .list-item a {
+    width: 250px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.panel-body .list-item a, .panel-body .list-item span {
+    display: inline-block;
+    cursor: pointer;
+}
+
+.panel-body .list-item span {
+    width: 34px;
+    top: -10px;
+}

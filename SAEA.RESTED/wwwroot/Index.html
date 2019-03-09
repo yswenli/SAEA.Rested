@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="content/css/bootstrap.min.css" rel="stylesheet" />
     <link href="content/css/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="content/css/index.css" rel="stylesheet" />
     <title>SAEA.RESTED——developed by yswenli</title>
 </head>
 <body>
@@ -14,18 +15,23 @@
             <div class="col-md-*">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h1>SAEA.RESTED <small>基于SAEA.MVC的HttpTool</small></h1>
+                        <h1>
+                            <a id="markImg" href="https://github.com/yswenli/saea.rested" target="_blank">
+                                <img src="content/img/6139455.png" />
+                            </a>
+                            SAEA.RESTED <small>基于SAEA.MVC的HttpTool</small>
+                        </h1>
                     </div>
-                    <div class="panel-body" style="max-height:780px;overflow:auto;">
+                    <div class="panel-body">
                         <div class="col-md-8">
                             <div class="row">
-                                <div class="col-md-2">
+                                <div class="col-md-2 search-div-1">
                                     <select class="form-control" id="methodSel">
                                         <option value="GET">GET</option>
                                         <option value="POST">POST</option>
                                     </select>
                                 </div>
-                                <div class="col-md-10">
+                                <div class="col-md-10 search-div-2">
                                     <div class="input-group">
                                         <input id="urlTxt" type="text" class="form-control" placeholder="https://www.baidu.com/" />
                                         <span class="input-group-btn">
@@ -67,7 +73,7 @@ Cache-Control: max-age=0</textarea>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-4 right-list">
                             <div class="row">
                                 <div class="col-md-12">
                                     <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
@@ -100,11 +106,13 @@ Cache-Control: max-age=0</textarea>
                                             </div>
                                             <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                                                 <div class="panel-body">
-                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
-                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
-                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
-                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
-                                                    <button type="button" class="btn btn-default btn-lg text-left btn-block" style="overflow:hidden;margin-bottom:10px;">大按钮）Large button</button>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
+                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
                                                 </div>
                                             </div>
                                         </div>
