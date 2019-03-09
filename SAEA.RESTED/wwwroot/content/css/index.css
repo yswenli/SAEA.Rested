@@ -55,6 +55,16 @@
     padding-left: 0px;
 }
 
+@media screen and (max-width: 990px) {
+    .search-div-1 {
+        padding-right: 15px;
+    }
+
+    .search-div-2 {
+        padding-left: 15px;
+    }
+}
+
 
 .list-item {
     display: block;
@@ -81,7 +91,7 @@
 }
 
 .panel-body .list-item a {
-    width: 250px;
+    width: 84%;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -93,6 +103,6 @@
 }
 
 .panel-body .list-item span {
-    width: 34px;
+    width: 10%;
     top: -10px;
 }
