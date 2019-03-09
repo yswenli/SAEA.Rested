@@ -6,12 +6,12 @@ using System.Runtime.InteropServices;
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
 [assembly: AssemblyTitle("SAEA.RESTED")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("SAEA.RESTED is a concise and easy-to-use HTTP request tool based on SAEA.MVC.SAEA.RESTED 是基于SAEA.MVC的一款简洁方便使用的http请求工具")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
+[assembly: AssemblyCompany("yswenli")]
 [assembly: AssemblyProduct("SAEA.RESTED")]
-[assembly: AssemblyCopyright("Copyright © Microsoft 2019")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCopyright("Copyright © yswenli 2019")]
+[assembly: AssemblyTrademark("SAEA.RESTED")]
 [assembly: AssemblyCulture("")]
 
 // 将 ComVisible 设置为 false 会使此程序集中的类型
