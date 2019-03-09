@@ -1,6 +1,10 @@
 ﻿body {
-    background-image: linear-gradient(45deg,#f5f5f5 25%,#ffffff 0,#ffffff 50%,#f5f5f5 0,#f5f5f5 75%,#ffffff 0);
-    background-size: 10px 10px;
+    background-image: linear-gradient(315deg,#f5f5f5 25%,#ffffff 0,#ffffff 50%,#f5f5f5 0,#f5f5f5 75%,#ffffff 0);
+    background-size: 6px 6px;
+}
+
+textarea {
+    resize: none;
 }
 
 .panel {
@@ -65,6 +69,20 @@
     }
 }
 
+#alert-words {
+    display: block;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    background-color: #eee;
+    border: 1px solid #eee;
+    border-left-color: #5cb85c;
+    border-left-width: 5px;
+    border-radius: 3px;
+    margin-top: 10px;
+    padding-left: 6px;
+}
+
 
 .list-item {
     display: block;
@@ -105,4 +123,29 @@
 .panel-body .list-item span {
     width: 10%;
     top: -10px;
+}
+
+.group-title-lable {
+    display: inline-block;
+    width: 80%;
+}
+
+.group-edit, .group-delete {
+    padding-right: 5px;
+    cursor: pointer;
+}
+
+.group-edit-div {
+    visibility: collapse;
+}
+
+#importDataTxt {
+    width: 100%;
+}
+
+
+#exportDiv {
+    max-height: 680px;
+    overflow: scroll;
+    word-wrap: break-word;
 }

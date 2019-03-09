@@ -33,7 +33,7 @@
                                 </div>
                                 <div class="col-md-10 search-div-2">
                                     <div class="input-group">
-                                        <input id="urlTxt" type="text" class="form-control" placeholder="https://www.baidu.com/" />
+                                        <input id="urlTxt" type="text" class="form-control" placeholder="https://github.com/yswenli/saea.rested" value="https://github.com/yswenli/saea.rested" />
                                         <span class="input-group-btn">
                                             <button id="runBtn" class="btn btn-primary" type="button">Go!</button>
                                         </span>
@@ -43,40 +43,28 @@
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea id="headerTxt" class="form-control" rows="10" style="resize:none;" placeholder="请求Header">Host: www.baidu.com
-User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64; rv:64.0) Gecko/20100101 Firefox/64.0
-Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
-Accept-Language: zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2
-Accept-Encoding: gzip, deflate, br
-Connection: keep-alive
-Cookie: BAIDUID=33BFF77D443BDCBFA6DDC43EDBA3E9B1:FG=1; BIDUPSID=33BFF77D443BDCBFA6DDC43EDBA3E9B1; PSTM=1551880870; delPer=0; BD_HOME=0; H_PS_PSSID=1431_21111_28608_28585_26350_28518_28627_28605; BD_UPN=13314752
-Upgrade-Insecure-Requests: 1
-Cache-Control: max-age=0</textarea>
+                                    <textarea id="dataTxt" class="form-control" rows="10" placeholder="请求Json"></textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <p></p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea id="reHeaderTxt" class="form-control" rows="10" style="resize:none;" placeholder="回复Header" readonly="readonly"></textarea>
+                                    <textarea id="reTxt" class="form-control" rows="22" placeholder="回复内容" readonly="readonly"></textarea>
                                 </div>
                                 <div class="col-md-12">
-                                    <p></p>
+                                    <p id="alert-words">
+                                        本次请求用时：0秒
+                                    </p>
                                 </div>
                                 <div class="col-md-12">
-                                    <textarea id="reTxt" class="form-control" rows="10" style="resize:none;" placeholder="回复内容" readonly="readonly"></textarea>
-                                </div>
-                                <div class="col-md-12">
-                                    <p></p>
-                                </div>
-                                <div class="col-md-12">
-                                    <button id="saveBtn" type="button" class="btn btn-default" disabled="disabled"><span class="glyphicon glyphicon-download-alt"></span> 保存到列表</button>
+                                    <button id="saveBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> 保存到列表</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 right-list">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
+                                    <button id="addBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
                                     <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-download"></span> 导入</button>
                                     <button id="exportBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#exportModal"><span class="glyphicon glyphicon-upload"></span> 导出</button>
                                 </div>
@@ -85,65 +73,8 @@ Cache-Control: max-age=0</textarea>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="false">
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne">
-                                                <h4 class="panel-title">
 
-                                                    <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                                        Collapsible Group Item #1
-                                                    </a>
-                                                    <a class="text-right glyphicon glyphicon-cog"></a>
-                                                    <a class="text-right glyphicon glyphicon-trash" data-toggle="modal" data-target="#deleteModal"></a>
-                                                </h4>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="https://www.baidu.com/" />
-                                                    <span class="input-group-btn">
-                                                        <button id="runBtn" class="btn btn-default" type="button">
-                                                            <span class="glyphicon glyphicon-ok"></span>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                <div class="panel-body">
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                    <div class="list-item"><a>sssssssssssssss</a> <span class="text-right glyphicon glyphicon-trash"></span></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingTwo">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                        Collapsible Group Item #2
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                                                <div class="panel-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingThree">
-                                                <h4 class="panel-title">
-                                                    <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                                                        Collapsible Group Item #3
-                                                    </a>
-                                                </h4>
-                                            </div>
-                                            <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                                                <div class="panel-body">
-                                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                                                </div>
-                                            </div>
-                                        </div>
+
                                     </div>
                                 </div>
                             </div>
@@ -162,14 +93,14 @@ Cache-Control: max-age=0</textarea>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <input type="email" class="form-control" id="addGroupNameTxt" placeholder="添加组名称">
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="addGroupBtn">确定</button>
                 </div>
             </div>
         </div>
@@ -180,14 +111,14 @@ Cache-Control: max-age=0</textarea>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 导入提示</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    <textarea id="importDataTxt" rows="20" class="form-control" placeholder="请输入Json配置"></textarea>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="importDataBtn">确定</button>
                 </div>
             </div>
         </div>
@@ -198,14 +129,13 @@ Cache-Control: max-age=0</textarea>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 导出提示</h4>
                 </div>
-                <div class="modal-body">
-                    ...
+                <div class="modal-body" id="exportDiv">
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
                 </div>
             </div>
         </div>
@@ -216,19 +146,55 @@ Cache-Control: max-age=0</textarea>
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    确定要删除此组么？
+                    <input type="hidden" id="deletegroupidTxt" value="" />
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="deletegroupBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="deleteItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
+                </div>
+                <div class="modal-body">
+                    确定要删除此项么？
+                    <input type="hidden" id="deleteitemgroupidTxt" value="" />
+                    <input type="hidden" id="deleteitemidTxt" value="" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="deleteitemBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- loading -->
+    <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static'>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
+                </div>
+                <div class="modal-body">
+                    <img src="content/img/loading.gif" />  正在加载中，请稍候...<span id="result"></span>
                 </div>
             </div>
         </div>
     </div>
     <script src="https://v3.bootcss.com/assets/js/vendor/jquery.min.js"></script>
     <script src="content/js/bootstrap.min.js"></script>
+    <script src="content/js/index.js"></script>
 </body>
 </html>

@@ -16,14 +16,163 @@
 *描    述：
 *****************************************************************************/
 using SAEA.MVC;
+using SAEA.RESTED.Libs;
+using SAEA.RESTED.Models;
 
 namespace SAEA.RESTED.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index()
+
+        public ActionResult GetList()
         {
-            return Content("test");
+            string groupID = string.Empty;
+
+            HttpContext.Request.Parmas.TryGetValue("groupID", out groupID);
+
+            return Content(RecordDataHelper.GetRightList(groupID));
+        }
+
+
+        public ActionResult AddGroup(string groupName)
+        {
+            var result = "0";
+            if (!string.IsNullOrWhiteSpace(groupName))
+            {
+                RecordDataHelper.AddGroup(groupName);
+
+                result = "1";
+            }
+            return Content(result);
+        }
+
+        public ActionResult AddItem(string groupID, string method, string url, string json)
+        {
+            var result = "0";
+            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
+            {
+                url = SAEA.Http.Base.HttpUtility.UrlDecode(url);
+
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    json = SAEA.Http.Base.HttpUtility.UrlDecode(json);
+                }
+
+                RecordDataHelper.AddItem(groupID, method, url, json);
+
+                result = "1";
+            }
+            return Content(result);
+        }
+
+        public ActionResult UpdateGroup(string groupID, string groupName)
+        {
+            var result = "0";
+            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(groupName))
+            {
+                groupName = SAEA.Http.Base.HttpUtility.UrlDecode(groupName);
+
+                RecordDataHelper.UpdateGroup(groupID, groupName);
+
+                result = "1";
+            }
+            return Content(result);
+        }
+
+
+        public ActionResult RemoveGroup(string groupID)
+        {
+            var result = "0";
+            if (!string.IsNullOrWhiteSpace(groupID))
+            {
+                RecordDataHelper.RemoveGroup(groupID);
+
+                result = "1";
+            }
+            return Content(result);
+        }
+
+        public ActionResult RemoveItem(string groupID, string itemID)
+        {
+            var result = "0";
+            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(itemID))
+            {
+                RecordDataHelper.RemoveItem(groupID, itemID);
+
+                result = "1";
+            }
+            return Content(result);
+        }
+
+
+        public ActionResult GetItem(string groupID, string itemID)
+        {
+            ListItem listItem = new ListItem();
+
+            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(itemID))
+            {
+                listItem = RecordDataHelper.GetItem(groupID, itemID);
+            }
+
+            if (listItem == null)
+                return Content(string.Empty);
+            return Json(listItem);
+        }
+
+        public ActionResult Import(string json)
+        {
+            var result = "0";
+
+            try
+            {
+                if (!string.IsNullOrWhiteSpace(json))
+                {
+                    json = SAEA.Http.Base.HttpUtility.UrlDecode(json);
+
+                    var rd = Deserialize<RecordData>(json);
+
+                    if (rd != null)
+                    {
+                        RecordDataHelper.Write(rd);
+
+                        result = "1";
+                    }
+                }
+            }
+            catch { }
+
+            return Content(result);
+        }
+
+        public ActionResult Export()
+        {
+            return Json(RecordDataHelper.Read());
+        }
+
+
+        public ActionResult Request(string method, string url, string data)
+        {
+            var result = string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
+            {
+                url = SAEA.Http.Base.HttpUtility.UrlDecode(url);
+            }
+
+            if (!string.IsNullOrWhiteSpace(data))
+            {
+                data = SAEA.Http.Base.HttpUtility.UrlDecode(data);
+            }
+
+            if (method == "POST")
+            {
+                result = WebClientHelper.Post(url, data);
+            }
+            else
+            {
+                result = WebClientHelper.Get(url);
+            }
+            return Content(result);
         }
     }
 }
