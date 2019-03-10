@@ -39,15 +39,13 @@
             data: JSON.stringify(jsonData),
             dataType: "json",
             success: function (message) {
-
                 var now = (new Date()).getTime() - begin;
                 $("#alert-words").html("本次请求用时：" + now / 1000 + "秒");
 
-                $("#reTxt").val(message.responseText);
+                $("#reTxt").val(JSON.stringify(message));
                 $('#loading').modal('hide');
             },
             error: function (message) {
-                
                 var now = (new Date()).getTime() - begin;
                 $("#alert-words").html("本次请求用时：" + now/1000 + "秒");
 
