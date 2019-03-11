@@ -22,6 +22,11 @@ namespace SAEA.RESTED.Models
     {
         public string ID
         {
+            get; set;
+        }
+
+        public string Title
+        {
             get;set;
         }
         public string Url

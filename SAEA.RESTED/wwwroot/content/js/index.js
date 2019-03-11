@@ -19,7 +19,6 @@
 
     //go按钮
     $("#runBtn").click(function () {
-
         var begin = (new Date()).getTime();
 
         $('#loading').modal('show');
@@ -30,7 +29,7 @@
         var url = $("#urlTxt").val();
         var data = $("#dataTxt").val();
 
-        var jsonData = { "method": method, "url": encodeURIComponent(url), "data": encodeURIComponent(data) };        
+        var jsonData = { "method": method, "url": encodeURIComponent(url), "data": encodeURIComponent(data) };
 
         $.ajax({
             type: "POST",
@@ -47,19 +46,13 @@
             },
             error: function (message) {
                 var now = (new Date()).getTime() - begin;
-                $("#alert-words").html("本次请求用时：" + now/1000 + "秒");
+                $("#alert-words").html("本次请求用时：" + now / 1000 + "秒");
 
                 $("#reTxt").val(message.responseText);
                 $('#loading').modal('hide');
             }
         });
-    });
 
-    //回车
-    $("#urlTxt").keyup(function (keys) {
-        if (keys.keyCode === 13) {
-            $("#runBtn").click();
-        }
     });
 
     //添加组
@@ -78,7 +71,7 @@
                         $("#accordion").html(data);
                     });
 
-                    $("#addModal").modal('hide');
+                    $("#addGroupModal").modal('hide');
                 }
             });
         }
@@ -97,13 +90,9 @@
         $.post("/home/updategroup", "groupID=" + groupID + "&groupName=" + encodeURIComponent(groupName), function (data) {
 
             if (data === "1") {
-
                 $.get("/home/getlist", "", function (data) {
-
                     $("#accordion").html(data);
                 });
-
-                $("#addModal").modal('hide');
             }
         });
     });
@@ -111,45 +100,38 @@
 
     //保存按钮
     $("#saveBtn").click(function () {
+        $.get("/home/getgroups", null, function (data) {
+            $("#groupIDsel").html(data);
+        });
+    });
 
+    $("#addItemBtn").click(function () {
 
+        var groupID = $("#groupIDsel").val();
+        var title = $("#addItemTxt").val();
         var method = $("#methodSel").val();
         var url = $("#urlTxt").val();
         var json = $("#dataTxt").val();
 
+        if (groupID === "") {
+            alert("请选择组！");
+            return;
+        }
+        if (title === "") {
+            alert("title不能为空！");
+            return;
+        }
         if (url === "") {
             alert("Url地址不能为空！");
             return;
         }
 
-        $("#saveBtn").attr("disabled", "disabled");
-
-        var groupID = "";
-
-        try {
-
-            groupID = $(".group-title-lable").eq(0).attr("data-id");
-
-            $(".group-title-lable").each(function (index) {
-                if ($(this).attr("aria-expanded") === "true") {
-                    groupID = $(this).attr("data-id");
-                }
+        $.post("/home/additem", `groupID=${groupID}&title=${encodeURIComponent(title)}&method=${method}&url=${encodeURIComponent(url)}&json=${encodeURIComponent(json)}`, function (data) {
+            $.get("/home/getlist", "groupID=" + groupID, function (data) {
+                $("#accordion").html(data);
+                $("#addItemModal").modal('hide');
             });
-        }
-        catch{
-            groupID = "";
-        }
-
-        if (groupID !== "") {
-            $.post("/home/additem", `groupID=${groupID}&method=${method}&url=${encodeURIComponent(url)}&json=${encodeURIComponent(json)}`, function (data) {
-                $.get("/home/getlist", "groupID=" + groupID, function (data) {
-                    $("#accordion").html(data);
-                    $("#saveBtn").removeAttr("disabled");
-                });
-            });
-        }
-
-
+        });
     });
 
     //删除组
@@ -201,6 +183,39 @@
 
     //列表点击
     $("#accordion").on("click", ".urlLink", function () {
+        $('#loading').modal('show');
+        var groupID = $(this).attr("data-group");
+
+        var itemID = $(this).attr("data-id");
+
+        if (groupID !== "" && itemID !== "") {
+
+            $.get("/home/getitem", `groupID=${groupID}&itemID=${itemID}`, function (data) {
+                if (data !== undefined || data !== "") {
+                    $("#methodSel").val(data.Method);
+                    $("#methodSel").change();
+                    $("#urlTxt").val(data.Url);
+                    $("#dataTxt").val(data.RequestJson);
+                }
+                setTimeout("$('#loading').modal('hide')", 1000);
+            });
+        }
+    });
+
+    //搜索
+    $("#searchBtn").click(function () {
+
+        var keywords = decodeURIComponent($("#searchTxt").val());
+
+        $.post("/home/search", `keywords=${keywords}`, function (data) {
+            $(".search-list").html(data);
+        });
+    });
+
+    //搜索项点击
+    $(".search-list").on("click", "div", function () {
+        $('#searchModel').modal('hide');
+        $('#loading').modal('show');
 
         var groupID = $(this).attr("data-group");
 
@@ -215,10 +230,11 @@
                     $("#urlTxt").val(data.Url);
                     $("#dataTxt").val(data.RequestJson);
                 }
+                setTimeout("$('#loading').modal('hide')", 1000);
             });
         }
-
     });
+
 
     //导入
     $("#importDataBtn").click(function () {
@@ -254,9 +270,16 @@
 
     //快捷键
     $(window).keydown(function (event) {
-        if (!(event.ctrlKey && event.keyCode === 83)) return true;
+        if (!((event.ctrlKey && event.keyCode === 83) || (event.keyCode === 13 || event.key === "F5"))) return true;
+
         event.preventDefault();
-        $("#saveBtn").click();
+
+        if (event.keyCode === 13 || event.key === "F5") {
+            $("#runBtn").click();
+        }
+        else
+            $("#saveBtn").click();
+
         return false;
     });
 });

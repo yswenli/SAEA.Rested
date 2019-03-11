@@ -89,10 +89,9 @@ textarea {
     height: 46px;
     width: 100%;
     border-radius: 5px;
-    background-color: #eae8e8;
+    background-color: #EFEFEF;
     border: solid 1px #e1dfdf;
     margin-bottom: 10px;
-    line-height: 36px;
     padding: 5px 5px 5px 15px;
     overflow: hidden;
     box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
@@ -100,8 +99,8 @@ textarea {
 }
 
     .list-item:hover {
-        background-color: #ffffff;
-        border: solid 1px #000c92;
+        background-color: #46a9ff;
+        border: solid 1px #46a9ff;
     }
 
 .panel-footer {
@@ -110,10 +109,22 @@ textarea {
 
 .panel-body .list-item a {
     width: 84%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
 }
+
+    .panel-body .list-item a p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        line-height: 12px;
+    }
+
+        .panel-body .list-item a p.list-item-title {
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            line-height: 20px;
+            margin-bottom: 2px;
+        }
 
 .panel-body .list-item a, .panel-body .list-item span {
     display: inline-block;
@@ -122,7 +133,7 @@ textarea {
 
 .panel-body .list-item span {
     width: 10%;
-    top: -10px;
+    top: -18px;
 }
 
 .group-title-lable {
@@ -131,6 +142,11 @@ textarea {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    font-weight: bold;
+}
+
+a[aria-expanded="false"] {
+    font-style: italic;
 }
 
 .group-edit, .group-delete {
@@ -140,6 +156,32 @@ textarea {
 
 .group-edit-div {
     visibility: collapse;
+}
+
+.search-list div {
+    border-radius: 5px;
+    background: #e1dfdf;
+    border: 1px solid #e1dfdf;
+    padding: 5px;
+    margin: 5px;
+    color: #337AC3;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset;
+    transition: border-color ease-in-out .45s, box-shadow ease-in-out .45s,background-color ease-in-out .45s, box-shadow ease-in-out .45s;
+}
+
+    .search-list div:hover {
+        background-color: #46a9ff;
+        border: solid 1px #46a9ff;
+        color: #01063d;
+    }
+
+    .search-list div p {
+        cursor: pointer;
+        word-wrap: break-word;
+    }
+
+.search-item-title {
+    font-weight: bold;
 }
 
 #importDataTxt {

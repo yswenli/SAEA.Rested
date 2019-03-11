@@ -58,14 +58,25 @@
                                     </p>
                                 </div>
                                 <div class="col-md-12">
-                                    <button id="saveBtn" type="button" class="btn btn-default"><span class="glyphicon glyphicon-share-alt"></span> 保存到列表</button>
+                                    <button id="saveBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addItemModal"><span class="glyphicon glyphicon-share-alt"></span> 保存到列表</button>
                                 </div>
                             </div>
                         </div>
                         <div class="col-md-4 right-list">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <button id="addBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
+                                    <div class="input-group">
+                                        <input id="searchTxt" type="text" class="form-control" placeholder="请输入关键字" value="" />
+                                        <span class="input-group-btn">
+                                            <button id="searchBtn" class="btn btn-primary" type="button" data-toggle="modal" data-target="#searchModel">Search</button>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <p></p>
+                                </div>
+                                <div class="col-md-12">
+                                    <button id="addBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#addGroupModal"><span class="glyphicon glyphicon-plus"></span>添加组</button>
                                     <button id="importBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#importModal"><span class="glyphicon glyphicon-download"></span> 导入</button>
                                     <button id="exportBtn" type="button" class="btn btn-default" data-toggle="modal" data-target="#exportModal"><span class="glyphicon glyphicon-upload"></span> 导出</button>
                                 </div>
@@ -83,13 +94,15 @@
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <a href="https://github.com/yswenli/SAEA.Rested/releases">下载地址：https://github.com/yswenli/saea.rested/releases</a>
+                    <a href="https://github.com/yswenli/SAEA.Rested/releases" target="_blank">下载地址：https://github.com/yswenli/saea.rested/releases</a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!--model div-->
+
+    <div class="modal fade" id="addGroupModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -97,11 +110,31 @@
                     <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
                 </div>
                 <div class="modal-body">
-                    <input type="email" class="form-control" id="addGroupNameTxt" placeholder="添加组名称">
+                    <input type="text" class="form-control" id="addGroupNameTxt" placeholder="添加组名称">
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
                     <button type="button" class="btn btn-primary" id="addGroupBtn">确定</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal fade" id="addItemModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
+                </div>
+                <div class="modal-body">
+                    <select class="form-control" id="groupIDsel"></select></br>
+                    <input type="text" class="form-control" id="addItemTxt" placeholder="添加项名称" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary" id="addItemBtn">确定</button>
                 </div>
             </div>
         </div>
@@ -181,6 +214,20 @@
         </div>
     </div>
 
+    <div class="modal fade" id="searchModel" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
+                </div>
+                <div class="modal-body search-list">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- loading -->
     <div class="modal fade" id="loading" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-backdrop='static'>
         <div class="modal-dialog" role="document">
@@ -189,11 +236,12 @@
                     <h4 class="modal-title" id="myModalLabel">SAEA.RESTED 提示</h4>
                 </div>
                 <div class="modal-body">
-                    <img src="content/img/loading.gif" />  正在加载中，请稍候...<span id="result"></span>
+                    <img src="content/img/loading.gif" />  正在玩命加载中，请稍候...<span id="result"></span>
                 </div>
             </div>
         </div>
     </div>
+
     <script src="https://v3.bootcss.com/assets/js/vendor/jquery.min.js"></script>
     <script src="content/js/bootstrap.min.js"></script>
     <script src="content/js/index.js"></script>

@@ -30,7 +30,10 @@ namespace SAEA.RESTED.Libs
     {
         static string temple = $"<div class=\"panel panel-default\"> <div class=\"panel-heading\" role=\"tab\" id=\"@groupID\"><h4 class=\"panel-title\"><a class=\"group-title-lable@collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#c@groupID\" aria-expanded=\"@expanded\" aria-controls=\"c@groupID\" data-id=\"@groupID\">@groupName</a><a class=\"text-right glyphicon glyphicon-cog group-edit\"></a><a class=\"text-right glyphicon glyphicon-trash group-delete\" data-toggle=\"modal\" data-target=\"#deleteModal\" data-id=\"@groupID\"></a></h4><div class=\"input-group group-edit-div\"><input type=\"text\" class=\"form-control\" value=\"@groupName\" /><span class=\"input-group-btn\"> <button class=\"btn btn-default edit-group-btn\" type=\"button\" data-id=\"@groupID\"><span class=\"glyphicon glyphicon-ok\"></span>  </button></span></div>  </div>  <div id=\"c@groupID\" class=\"panel-collapse collapse@in\" role=\"tabpanel\" aria-labelledby=\"@groupID\"><div class=\"panel-body\">@itemList</div>  </div></div>";
 
-        static string itemList = "<div class=\"list-item\"><a class=\"urlLink\" data-group=\"@groupID\" data-id=\"@itemID\" title=\"@itemUrl\"> @itemUrl</a> <span class=\"text-right glyphicon glyphicon-trash delteItem\" data-toggle=\"modal\" data-target=\"#deleteItemModal\" data-group=\"@groupID\" data-id=\"@itemID\"></span></div>";
+        static string itemList = "<div class=\"list-item\"><a class=\"urlLink\" data-group=\"@groupID\" data-id=\"@itemID\" title=\"@itemUrl\"><p class=\"list-item-title\">@itemTitle</p><p>@itemUrl</p></a> <span class=\"text-right glyphicon glyphicon-trash delteItem\" data-toggle=\"modal\" data-target=\"#deleteItemModal\" data-group=\"@groupID\" data-id=\"@itemID\"></span></div>";
+
+
+        static string searchItem = "<div data-group=\"@groupID\" data-id=\"@itemID\"><p class=\"search-item-title\">@itemTitle</p><p>@itemUrl</p></div>";
 
 
         static string path = Path.Combine(Directory.GetCurrentDirectory(), "SAEA.RESTED.json");
@@ -70,7 +73,7 @@ namespace SAEA.RESTED.Libs
         }
 
 
-        public static string GetRightList(string groupID="")
+        public static string GetRightList(string groupID = "")
         {
             string result = string.Empty;
 
@@ -90,7 +93,7 @@ namespace SAEA.RESTED.Libs
                     {
                         foreach (var sitem in item.List)
                         {
-                            ssb.Append(itemList.Replace("@groupID", item.GroupID).Replace("@itemID", sitem.ID).Replace("@itemUrl", sitem.Url));
+                            ssb.Append(itemList.Replace("@groupID", item.GroupID).Replace("@itemID", sitem.ID).Replace("@itemTitle", sitem.Title).Replace("@itemUrl", sitem.Url));
                         }
                     }
 
@@ -116,7 +119,7 @@ namespace SAEA.RESTED.Libs
                         {
                             sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@collapsed", " collapsed").Replace("@expanded", "false").Replace("@in", "").Replace("@itemList", ssb.ToString()));
                         }
-                    }                    
+                    }
                 }
 
                 result = sb.ToString();
@@ -137,6 +140,27 @@ namespace SAEA.RESTED.Libs
         }
 
 
+        public static string GetGroups()
+        {
+            StringBuilder sb = new StringBuilder();
+
+            if (RecordData == null)
+            {
+                RecordData = new RecordData();
+            }
+
+            if (RecordData.Groups != null && RecordData.Groups.Any())
+            {
+                foreach (var item in RecordData.Groups)
+                {
+                    sb.AppendLine($"<option value=\"{item.GroupID}\">{item.GroupName}</option>");
+                }
+            }
+
+            return sb.ToString();
+        }
+
+
         public static void UpdateGroup(string groupID, string groupName)
         {
             if (RecordData == null)
@@ -154,7 +178,7 @@ namespace SAEA.RESTED.Libs
         }
 
 
-        public static void AddItem(string groupID, string method, string url, string json)
+        public static void AddItem(string groupID, string title, string method, string url, string json)
         {
             if (RecordData == null)
             {
@@ -169,6 +193,7 @@ namespace SAEA.RESTED.Libs
                     group.List.Insert(0, new ListItem()
                     {
                         ID = GetID(),
+                        Title = title,
                         Method = method,
                         Url = url,
                         RequestJson = json
@@ -237,10 +262,64 @@ namespace SAEA.RESTED.Libs
             }
 
             return listItem;
-
         }
 
+        /// <summary>
+        /// 查询
+        /// </summary>
+        /// <param name="keywords"></param>
+        /// <returns></returns>
+        public static string Search(string keywords)
+        {
+            string result = "找不到任何内容";
 
+            if (RecordData != null && RecordData.Groups != null && RecordData.Groups.Any())
+            {
+                if (!string.IsNullOrWhiteSpace(keywords))
+                    keywords = SAEA.Http.Base.HttpUtility.UrlDecode(keywords);
 
+                StringBuilder sb = new StringBuilder();
+
+                int max = 10;
+
+                int i = 0;
+
+                foreach (var group in RecordData.Groups)
+                {
+                    if (group.List != null && group.List.Any())
+                    {
+                        foreach (var item in group.List)
+                        {
+                            i++;
+
+                            if (i > max) break;
+
+                            if (string.IsNullOrWhiteSpace(keywords))
+                            {
+                                sb.Append(searchItem.Replace("@groupID", group.GroupID).Replace("@itemID", item.ID).Replace("@itemTitle", item.Title).Replace("@itemUrl", item.Url));
+                            }
+                            else
+                            {
+                                if (item.Title.IndexOf(keywords) > -1 || item.Url.IndexOf(keywords) > -1)
+                                {
+                                    sb.Append(searchItem.Replace("@groupID", group.GroupID).Replace("@itemID", item.ID).Replace("@itemTitle", item.Title).Replace("@itemUrl", item.Url));
+                                }
+                                else
+                                {
+                                    i--;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if (sb.Length > 0)
+                {
+                    result = sb.ToString();
+                }
+
+            }
+            return result;
+        }
     }
 }

@@ -46,11 +46,18 @@ namespace SAEA.RESTED.Controllers
             return Content(result);
         }
 
-        public ActionResult AddItem(string groupID, string method, string url, string json)
+        public ActionResult GetGroups()
+        {
+            return Content(RecordDataHelper.GetGroups());
+        }
+
+        public ActionResult AddItem(string groupID,string title, string method, string url, string json)
         {
             var result = "0";
-            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
+            if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
             {
+                title = SAEA.Http.Base.HttpUtility.UrlDecode(title);
+
                 url = SAEA.Http.Base.HttpUtility.UrlDecode(url);
 
                 if (!string.IsNullOrWhiteSpace(json))
@@ -58,7 +65,7 @@ namespace SAEA.RESTED.Controllers
                     json = SAEA.Http.Base.HttpUtility.UrlDecode(json);
                 }
 
-                RecordDataHelper.AddItem(groupID, method, url, json);
+                RecordDataHelper.AddItem(groupID, title, method, url, json);
 
                 result = "1";
             }
@@ -118,6 +125,14 @@ namespace SAEA.RESTED.Controllers
                 return Content(string.Empty);
             return Json(listItem);
         }
+
+
+        public ActionResult Search(string keywords)
+        {            
+            return Content(RecordDataHelper.Search(keywords));
+        }
+
+
 
         public ActionResult Import(string json)
         {
