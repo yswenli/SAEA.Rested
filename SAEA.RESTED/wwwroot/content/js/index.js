@@ -269,12 +269,24 @@
     });
 
     //快捷键
+    $("#urlTxt").keyup(function (event){
+        if (event.keyCode === 13) {
+            $("#runBtn").click();
+        }
+    });
+
+    $("#searchTxt").keyup(function (event) {
+        if (event.keyCode === 13) {
+            $("#searchBtn").click();
+        }
+    });
+
     $(window).keydown(function (event) {
-        if (!((event.ctrlKey && event.keyCode === 83) || (event.keyCode === 13 || event.key === "F5"))) return true;
+        if (!((event.ctrlKey && event.keyCode === 83) || (event.key === "F5"))) return true;
 
         event.preventDefault();
 
-        if (event.keyCode === 13 || event.key === "F5") {
+        if (event.key === "F5") {
             $("#runBtn").click();
         }
         else
