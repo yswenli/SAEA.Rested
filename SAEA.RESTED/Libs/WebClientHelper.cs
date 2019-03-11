@@ -16,7 +16,10 @@
 *描    述：
 *****************************************************************************/
 using System;
+using System.IO;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 
 namespace SAEA.RESTED.Libs
@@ -27,9 +30,17 @@ namespace SAEA.RESTED.Libs
         {
             try
             {
-                using (var webClient = new WebClient() { Encoding = Encoding.UTF8 })
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+                Encoding encoding = Encoding.UTF8;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "GET";
+                request.Accept = "text/html, application/xhtml+xml, */*";
+                request.ContentType = "application/json";
+
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    return webClient.DownloadString(url);
+                    return reader.ReadToEnd();
                 }
             }
             catch (Exception ex)
@@ -38,14 +49,24 @@ namespace SAEA.RESTED.Libs
             }
         }
 
-        public static string Post(string url, string json = "")
+        public static string Post(string url, string json)
         {
             try
             {
-                using (var webClient = new WebClient() { Encoding = Encoding.UTF8 })
+                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+                Encoding encoding = Encoding.UTF8;
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.Method = "POST";
+                request.Accept = "text/html, application/xhtml+xml, */*";
+                request.ContentType = "application/json";
+
+                byte[] buffer = encoding.GetBytes(json);
+                request.ContentLength = buffer.Length;
+                request.GetRequestStream().Write(buffer, 0, buffer.Length);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
-                    webClient.Headers["ContentType"] = "application/json";
-                    return Encoding.UTF8.GetString(webClient.UploadData(url, "POST", Encoding.UTF8.GetBytes(json)));
+                    return reader.ReadToEnd();
                 }
             }
             catch (Exception ex)
@@ -55,5 +76,9 @@ namespace SAEA.RESTED.Libs
 
         }
 
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
+        {
+            return true;
+        }
     }
 }
