@@ -191,13 +191,19 @@
         if (groupID !== "" && itemID !== "") {
 
             $.get("/home/getitem", `groupID=${groupID}&itemID=${itemID}`, function (data) {
+
+                setTimeout("$('#loading').modal('hide')", 500);
+
                 if (data !== undefined || data !== "") {
                     $("#methodSel").val(data.Method);
-                    $("#methodSel").change();
-                    $("#urlTxt").val(data.Url);
+                    $("#methodSel").change();                    
                     $("#dataTxt").val(data.RequestJson);
+                    $("#urlTxt").addClass("flicker");
+                    setTimeout(function () {
+                        $("#urlTxt").removeClass("flicker");
+                        $("#urlTxt").val(data.Url);
+                    }, 1000);
                 }
-                setTimeout("$('#loading').modal('hide')", 1000);
             });
         }
     });
@@ -224,13 +230,20 @@
         if (groupID !== "" && itemID !== "") {
 
             $.get("/home/getitem", `groupID=${groupID}&itemID=${itemID}`, function (data) {
+
+                setTimeout("$('#loading').modal('hide')", 500);
+
                 if (data !== undefined || data !== "") {
                     $("#methodSel").val(data.Method);
                     $("#methodSel").change();
-                    $("#urlTxt").val(data.Url);
                     $("#dataTxt").val(data.RequestJson);
+                    $("#urlTxt").addClass("flicker");
+                    setTimeout(function () {
+                        $("#urlTxt").removeClass("flicker");
+                        $("#urlTxt").val(data.Url);
+                    }, 1000);
                 }
-                setTimeout("$('#loading').modal('hide')", 1000);
+                
             });
         }
     });
@@ -269,7 +282,7 @@
     });
 
     //快捷键
-    $("#urlTxt").keyup(function (event){
+    $("#urlTxt").keyup(function (event) {
         if (event.keyCode === 13) {
             $("#runBtn").click();
         }

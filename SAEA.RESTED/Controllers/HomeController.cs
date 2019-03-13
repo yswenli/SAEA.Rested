@@ -51,7 +51,7 @@ namespace SAEA.RESTED.Controllers
             return Content(RecordDataHelper.GetGroups());
         }
 
-        public ActionResult AddItem(string groupID,string title, string method, string url, string json)
+        public ActionResult AddItem(string groupID, string title, string method, string url, string json)
         {
             var result = "0";
             if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
@@ -128,7 +128,7 @@ namespace SAEA.RESTED.Controllers
 
 
         public ActionResult Search(string keywords)
-        {            
+        {
             return Content(RecordDataHelper.Search(keywords));
         }
 
@@ -163,7 +163,6 @@ namespace SAEA.RESTED.Controllers
         {
             return Json(RecordDataHelper.Read());
         }
-
 
         public ActionResult Request(string method, string url, string data)
         {

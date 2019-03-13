@@ -99,8 +99,8 @@ textarea {
 }
 
     .list-item:hover {
-        background-color: #46a9ff;
-        border: solid 1px #46a9ff;
+        background-color: #ffffff;
+        border: solid 1px #f5f5f5;
     }
 
 .panel-footer {
@@ -170,8 +170,8 @@ a[aria-expanded="false"] {
 }
 
     .search-list div:hover {
-        background-color: #46a9ff;
-        border: solid 1px #46a9ff;
+        background-color: #ffffff;
+        border: solid 1px #f5f5f5;
         color: #01063d;
     }
 
@@ -193,4 +193,62 @@ a[aria-expanded="false"] {
     max-height: 680px;
     overflow: scroll;
     word-wrap: break-word;
+}
+
+.flicker {
+    animation: searchLights 0.5s ease-in 0.5s infinite;    
+}
+
+
+
+@-webkit-keyframes searchLights {
+    0% {
+        left: 647px;
+        top: 120px;
+        background-color: #cfcfcf;
+    }
+
+    to {
+        left: 0;
+        top: 0;
+    }
+}
+
+@-o-keyframes searchLights {
+    0% {
+        left: 647px;
+        top: 120px;
+        background-color: #cfcfcf;
+    }
+
+    to {
+        left: 0;
+        top: 0;
+    }
+}
+
+@-moz-keyframes searchLights {
+    0% {
+        left: 647px;
+        top: 120px;
+        background-color: #cfcfcf;
+    }
+
+    to {
+        left: 0;
+        top: 0;
+    }
+}
+
+@keyframes searchLights {
+    0% {
+        left: 647px;
+        top: 120px;
+        background-color: #cfcfcf;
+    }
+
+    to {
+        left: 0;
+        top: 0;
+    }
 }
