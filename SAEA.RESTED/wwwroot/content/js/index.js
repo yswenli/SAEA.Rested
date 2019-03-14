@@ -199,13 +199,11 @@
                 setTimeout("$('#loading').modal('hide')", 500);
 
                 if (data !== undefined || data !== "") {
-                    $("#methodSel").val(data.Method);
-                    $("#methodSel").change();
+                    $("#methodSel").val(data.Method).change();
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").removeClass("flicker");
-                        $("#urlTxt").val(data.Url);
+                        $("#urlTxt").removeClass("flicker").val(data.Url).focus();
                     }, 1000);
                 }
             });
@@ -238,13 +236,11 @@
                 setTimeout("$('#loading').modal('hide')", 500);
 
                 if (data !== undefined || data !== "") {
-                    $("#methodSel").val(data.Method);
-                    $("#methodSel").change();
+                    $("#methodSel").val(data.Method).change();
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").removeClass("flicker");
-                        $("#urlTxt").val(data.Url);
+                        $("#urlTxt").removeClass("flicker").val(data.Url);
                     }, 1000);
                 }
 
