@@ -35,6 +35,8 @@ namespace SAEA.RESTED
         private static readonly string FilePath = Assembly.GetExecutingAssembly().Location;
 
 
+        public static string VersionType = "Console版";
+
         static void ConsoleStart()
         {
             Console.Title = "SAEA.RESTED";
@@ -56,7 +58,7 @@ namespace SAEA.RESTED
             Console.ReadLine();
         }
 
-       static SAEARESTEDService _service;
+        static SAEARESTEDService _service;
 
         /// <summary>
         /// 启动入口
@@ -93,7 +95,7 @@ namespace SAEA.RESTED
 #if DEBUG
                         ConsoleStart();
 #else
-
+                        VersionType = "WinService版";
                         _service = new SAEARESTEDService();
                         _service.Run();
 #endif

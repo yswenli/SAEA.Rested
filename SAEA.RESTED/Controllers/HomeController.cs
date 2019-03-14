@@ -164,6 +164,11 @@ namespace SAEA.RESTED.Controllers
             return Json(RecordDataHelper.Read());
         }
 
+        public ActionResult GetVersion()
+        {
+            return Content(Program.VersionType);
+        }
+
         public ActionResult Request(string method, string url, string data)
         {
             var result = string.Empty;

@@ -17,6 +17,10 @@
         $("#accordion").html(data);
     });
 
+    $.get("/home/getversion", null, function (data) {
+        $(".version-span").html(data);
+    });
+
     //go按钮
     $("#runBtn").click(function () {
         var begin = (new Date()).getTime();

@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\JsonController.cs" />
     <Compile Include="Libs\RecordDataHelper.cs" />
     <Compile Include="Libs\WebClientHelper.cs" />
     <Compile Include="Libs\WinServiceHelper.cs" />
