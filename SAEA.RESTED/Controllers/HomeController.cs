@@ -191,6 +191,7 @@ namespace SAEA.RESTED.Controllers
             {
                 result = WebClientHelper.Get(url);
             }
+
             return Content(result);
         }
     }

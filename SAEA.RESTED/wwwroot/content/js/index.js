@@ -45,7 +45,7 @@
                 var now = (new Date()).getTime() - begin;
                 $("#alert-words").html("本次请求用时：" + now / 1000 + "秒");
 
-                $("#reTxt").val(JSON.stringify(message));
+                $("#reTxt").val(JSON.stringify(message, null, 4));
                 $('#loading').modal('hide');
             },
             error: function (message) {
@@ -200,7 +200,7 @@
 
                 if (data !== undefined || data !== "") {
                     $("#methodSel").val(data.Method);
-                    $("#methodSel").change();                    
+                    $("#methodSel").change();
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
@@ -247,7 +247,7 @@
                         $("#urlTxt").val(data.Url);
                     }, 1000);
                 }
-                
+
             });
         }
     });
@@ -281,7 +281,7 @@
     //导出
     $("#exportBtn").click(function () {
         $.get("/home/export", null, function (data) {
-            $("#exportDiv").html(JSON.stringify(data));
+            $("#exportDiv").html(JSON.stringify(data, null, 4));
         });
     });
 
