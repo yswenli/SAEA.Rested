@@ -28,7 +28,7 @@ namespace SAEA.RESTED.Libs
 {
     public class RecordDataHelper
     {
-        static string temple = $"<div class=\"panel panel-default\"> <div class=\"panel-heading\" role=\"tab\" id=\"@groupID\"><h4 class=\"panel-title\"><a class=\"group-title-lable@collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#c@groupID\" aria-expanded=\"@expanded\" aria-controls=\"c@groupID\" data-id=\"@groupID\">@groupName</a><a class=\"text-right glyphicon glyphicon-cog group-edit\"></a><a class=\"text-right glyphicon glyphicon-trash group-delete\" data-toggle=\"modal\" data-target=\"#deleteModal\" data-id=\"@groupID\"></a></h4><div class=\"input-group group-edit-div\"><input type=\"text\" class=\"form-control\" value=\"@groupName\" /><span class=\"input-group-btn\"> <button class=\"btn btn-default edit-group-btn\" type=\"button\" data-id=\"@groupID\"><span class=\"glyphicon glyphicon-ok\"></span>  </button></span></div>  </div>  <div id=\"c@groupID\" class=\"panel-collapse collapse@in\" role=\"tabpanel\" aria-labelledby=\"@groupID\"><div class=\"panel-body\">@itemList</div>  </div></div>";
+        static string temple = $"<div class=\"panel panel-default\"> <div class=\"panel-heading\" role=\"tab\" id=\"@groupID\"><h4 class=\"panel-title\"><a class=\"group-title-lable@collapsed\" role=\"button\" data-toggle=\"collapse\" data-parent=\"#accordion\" href=\"#c@groupID\" aria-expanded=\"@expanded\" aria-controls=\"c@groupID\" data-id=\"@groupID\">@groupName<span class=\"badge\">@itemCount</span></a><a class=\"text-right glyphicon glyphicon-cog group-edit\"></a><a class=\"text-right glyphicon glyphicon-trash group-delete\" data-toggle=\"modal\" data-target=\"#deleteModal\" data-id=\"@groupID\"></a></h4><div class=\"input-group group-edit-div\"><input type=\"text\" class=\"form-control\" value=\"@groupName\" /><span class=\"input-group-btn\"> <button class=\"btn btn-default edit-group-btn\" type=\"button\" data-id=\"@groupID\"><span class=\"glyphicon glyphicon-ok\"></span>  </button></span></div>  </div>  <div id=\"c@groupID\" class=\"panel-collapse collapse@in\" role=\"tabpanel\" aria-labelledby=\"@groupID\"><div class=\"panel-body\">@itemList</div>  </div></div>";
 
         static string itemList = "<div class=\"list-item\"><a class=\"urlLink\" data-group=\"@groupID\" data-id=\"@itemID\" title=\"@itemUrl\"><p class=\"list-item-title\">@itemTitle</p><p>@itemUrl</p></a> <span class=\"text-right glyphicon glyphicon-trash delteItem\" data-toggle=\"modal\" data-target=\"#deleteItemModal\" data-group=\"@groupID\" data-id=\"@itemID\"></span></div>";
 
@@ -102,22 +102,22 @@ namespace SAEA.RESTED.Libs
                         if (!started)
                         {
                             started = true;
-                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@collapsed", "").Replace("@expanded", "true").Replace("@in", " in").Replace("@itemList", ssb.ToString()));
+                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@itemCount", item.List.Count().ToString()).Replace("@collapsed", "").Replace("@expanded", "true").Replace("@in", " in").Replace("@itemList", ssb.ToString()));
                         }
                         else
                         {
-                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@collapsed", " collapsed").Replace("@expanded", "false").Replace("@in", "").Replace("@itemList", ssb.ToString()));
+                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@itemCount", item.List.Count().ToString()).Replace("@collapsed", " collapsed").Replace("@expanded", "false").Replace("@in", "").Replace("@itemList", ssb.ToString()));
                         }
                     }
                     else
                     {
                         if (item.GroupID == groupID)
                         {
-                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@collapsed", "").Replace("@expanded", "true").Replace("@in", " in").Replace("@itemList", ssb.ToString()));
+                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@itemCount", item.List.Count().ToString()).Replace("@collapsed", "").Replace("@expanded", "true").Replace("@in", " in").Replace("@itemList", ssb.ToString()));
                         }
                         else
                         {
-                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@collapsed", " collapsed").Replace("@expanded", "false").Replace("@in", "").Replace("@itemList", ssb.ToString()));
+                            sb.Append(temple.Replace("@groupID", item.GroupID).Replace("@groupName", item.GroupName).Replace("@itemCount", item.List.Count().ToString()).Replace("@collapsed", " collapsed").Replace("@expanded", "false").Replace("@in", "").Replace("@itemList", ssb.ToString()));
                         }
                     }
                 }
@@ -302,7 +302,11 @@ namespace SAEA.RESTED.Libs
                             {
                                 if (item.Title.IndexOf(keywords) > -1 || item.Url.IndexOf(keywords) > -1)
                                 {
-                                    sb.Append(searchItem.Replace("@groupID", group.GroupID).Replace("@itemID", item.ID).Replace("@itemTitle", item.Title).Replace("@itemUrl", item.Url));
+                                    var title = item.Title.Replace(keywords, $"<em>{keywords}</em>");
+
+                                    var url = item.Url.Replace(keywords, $"<em>{keywords}</em>");
+
+                                    sb.Append(searchItem.Replace("@groupID", group.GroupID).Replace("@itemID", item.ID).Replace("@itemTitle", title).Replace("@itemUrl", url));
                                 }
                                 else
                                 {

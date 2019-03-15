@@ -2,14 +2,14 @@
 
     //初始化
 
-    $("#dataTxt").hide();
+    $(".request-data-container").hide();
 
     $("#methodSel").change(function () {
         if ($("#methodSel").val() === "POST") {
-            $("#dataTxt").show();
+            $(".request-data-container").show();
         }
         else {
-            $("#dataTxt").hide();
+            $(".request-data-container").hide();
         }
     });
 
@@ -23,6 +23,7 @@
 
     //go按钮
     $("#runBtn").click(function () {
+
         var begin = (new Date()).getTime();
 
         $('#loading').modal('show');
@@ -33,6 +34,10 @@
         var url = $("#urlTxt").val();
         var data = $("#dataTxt").val();
 
+        $("#reTxt").val("");
+        $("#alert-words").html("");
+
+
         var jsonData = { "method": method, "url": encodeURIComponent(url), "data": encodeURIComponent(data) };
 
         $.ajax({
@@ -42,21 +47,38 @@
             data: JSON.stringify(jsonData),
             dataType: "json",
             success: function (message) {
+
                 var now = (new Date()).getTime() - begin;
+
                 $("#alert-words").html("本次请求用时：" + now / 1000 + "秒");
 
-                $("#reTxt").val(JSON.stringify(message, null, 4));
+                $("#reTxt").addClass("shake");
+
                 $('#loading').modal('hide');
+
+                setTimeout(function () {
+
+                    $("#reTxt").val(JSON.stringify(message, null, 4)).removeClass("shake");
+
+                }, 1000);
             },
             error: function (message) {
+
                 var now = (new Date()).getTime() - begin;
+
                 $("#alert-words").html("本次请求用时：" + now / 1000 + "秒");
 
-                $("#reTxt").val(message.responseText);
+                $("#reTxt").addClass("shake");
+
                 $('#loading').modal('hide');
+
+                setTimeout(function () {
+
+                    $("#reTxt").val(message.responseText).removeClass("shake");
+
+                }, 1000);
             }
         });
-
     });
 
     //添加组
