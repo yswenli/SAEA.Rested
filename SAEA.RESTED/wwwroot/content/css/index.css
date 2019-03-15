@@ -11,6 +11,11 @@ textarea {
     margin-bottom: 2px;
 }
 
+#runcontainer {
+    width: 100%;
+    height: 34px;
+}
+
 #markImg {
     display: inline-block;
     width: 38px;
@@ -164,6 +169,10 @@ textarea {
 a[aria-expanded="false"] {
     font-style: italic;
 }
+
+    a[aria-expanded="false"] span.badge {
+        margin-left: 3px;
+    }
 
 .group-edit, .group-delete {
     padding-right: 5px;

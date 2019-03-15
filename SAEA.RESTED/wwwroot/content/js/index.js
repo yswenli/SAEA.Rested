@@ -225,7 +225,7 @@
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").removeClass("flicker").val(data.Url).focus();
+                        $("#urlTxt").val(data.Url).removeClass("flicker").focus();
                     }, 1000);
                 }
             });
@@ -262,7 +262,7 @@
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").removeClass("flicker").val(data.Url);
+                        $("#urlTxt").val(data.Url).removeClass("flicker").focus();
                     }, 1000);
                 }
 
