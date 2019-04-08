@@ -22,7 +22,8 @@ $(function () {
 
     //初始化
     $("#detailed").hide();
-    
+    $("#detailed").offset({ top: $("#urlTxt").offset().top + 36, left: $("#urlTxt").offset().left });
+
     $(".request-data-container").hide();
 
     $("#methodSel").change(function () {
@@ -43,21 +44,15 @@ $(function () {
     });
 
     //输入框
-    $("#urlTxt").focus(() => {
+    $("#urlTxt").click(() => {
 
-        var location = $("#urlTxt").offset();
-
-        location.top += 36;
-
-        $("#detailed").offset(location);
-
-        $("#detailed").html($("#urlTxt").val());
+        $("#detailed").html(`${$("#urlTxt").attr("data-title") === undefined ? "" : "<b>"+$("#urlTxt").attr("data-title")+":</b><br/>"}  ${$("#urlTxt").val()}`);
 
         $("#detailed").show();
 
     });
 
-    $("urlTxt").blur(() => {
+    $("#detailed").mouseleave(() => {
         $("#detailed").hide();
     });
 
@@ -267,7 +262,7 @@ $(function () {
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").val(data.Url).removeClass("flicker").focus();
+                        $("#urlTxt").val(data.Url).attr("data-title", data.Title).removeClass("flicker").focus();
                     }, 1000);
                 }
             });
@@ -304,7 +299,7 @@ $(function () {
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
-                        $("#urlTxt").val(data.Url).removeClass("flicker").focus();
+                        $("#urlTxt").val(data.Url).attr("data-title", data.Title).removeClass("flicker").focus();
                     }, 1000);
                 }
 

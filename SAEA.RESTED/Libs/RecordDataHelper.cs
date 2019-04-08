@@ -300,7 +300,7 @@ namespace SAEA.RESTED.Libs
                             }
                             else
                             {
-                                if (item.Title.IndexOf(keywords) > -1 || item.Url.IndexOf(keywords) > -1)
+                                if (item.Title.IndexOf(keywords, StringComparison.OrdinalIgnoreCase) > -1 || item.Url.IndexOf(keywords, StringComparison.OrdinalIgnoreCase) > -1)
                                 {
                                     var title = item.Title.Replace(keywords, $"<em>{keywords}</em>");
 
