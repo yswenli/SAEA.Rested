@@ -38,7 +38,10 @@ namespace SAEA.RESTED.Models
         {
             get; set;
         }
-
+        public string RequestHeader
+        {
+            get; set;
+        }
         public string RequestJson
         {
             get; set;

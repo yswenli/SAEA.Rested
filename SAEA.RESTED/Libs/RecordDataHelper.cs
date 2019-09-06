@@ -178,7 +178,7 @@ namespace SAEA.RESTED.Libs
         }
 
 
-        public static void AddItem(string groupID, string title, string method, string url, string json)
+        public static void AddItem(string groupID, string title, string method, string url, string header, string json)
         {
             if (RecordData == null)
             {
@@ -196,6 +196,7 @@ namespace SAEA.RESTED.Libs
                         Title = title,
                         Method = method,
                         Url = url,
+                        RequestHeader = header,
                         RequestJson = json
                     });
                     Write(RecordData);
@@ -276,7 +277,7 @@ namespace SAEA.RESTED.Libs
             if (RecordData != null && RecordData.Groups != null && RecordData.Groups.Any())
             {
                 if (!string.IsNullOrWhiteSpace(keywords))
-                    keywords = SAEA.Http.Base.HttpUtility.UrlDecode(keywords);
+                    keywords = SAEA.Http.HttpUtility.UrlDecode(keywords);
 
                 StringBuilder sb = new StringBuilder();
 

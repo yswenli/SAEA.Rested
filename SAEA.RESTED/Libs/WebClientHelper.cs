@@ -16,6 +16,7 @@
 *描    述：
 *****************************************************************************/
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Security;
@@ -26,7 +27,7 @@ namespace SAEA.RESTED.Libs
 {
     public class WebClientHelper
     {
-        public static string Get(string url)
+        public static string Get(string url, string header)
         {
             try
             {
@@ -34,9 +35,7 @@ namespace SAEA.RESTED.Libs
                 Encoding encoding = Encoding.UTF8;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "GET";
-                request.Accept = "text/html, application/xhtml+xml, */*";
-                request.ContentType = "application/json";
-
+                SetHeaders(header, ref request);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
                 using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
@@ -49,7 +48,7 @@ namespace SAEA.RESTED.Libs
             }
         }
 
-        public static string Post(string url, string json)
+        public static string Post(string url, string header, string json)
         {
             try
             {
@@ -57,9 +56,7 @@ namespace SAEA.RESTED.Libs
                 Encoding encoding = Encoding.UTF8;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
                 request.Method = "POST";
-                request.Accept = "text/html, application/xhtml+xml, */*";
-                request.ContentType = "application/json";
-
+                SetHeaders(header, ref request);
                 byte[] buffer = encoding.GetBytes(json);
                 request.ContentLength = buffer.Length;
                 request.GetRequestStream().Write(buffer, 0, buffer.Length);
@@ -79,6 +76,101 @@ namespace SAEA.RESTED.Libs
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
         {
             return true;
+        }
+
+
+
+        static void SetHeaders(string header, ref HttpWebRequest request)
+        {
+            Dictionary<string, string> keyValuePairs = new Dictionary<string, string>();
+            try
+            {
+                var arr = header.Split('\n');
+
+                if (arr != null)
+                {
+                    foreach (var item in arr)
+                    {
+                        var kvs = item.Split(':');
+                        keyValuePairs[kvs[0].ToLower()] = string.IsNullOrEmpty(kvs[1]) ? "" : kvs[1].Trim();
+                    }
+
+                    if (keyValuePairs.ContainsKey("accept"))
+                    {
+                        request.Accept = keyValuePairs["accept"];
+
+                        keyValuePairs.Remove("accept");
+                    }
+
+                    if (keyValuePairs.ContainsKey("content-type"))
+                    {
+                        request.ContentType = keyValuePairs["content-type"];
+
+                        keyValuePairs.Remove("content-type");
+                    }
+
+                    if (keyValuePairs.ContainsKey("user-agent"))
+                    {
+                        request.UserAgent = keyValuePairs["user-agent"];
+
+                        keyValuePairs.Remove("user-agent");
+                    }
+
+                    if (keyValuePairs.ContainsKey("host"))
+                    {
+                        request.Host = keyValuePairs["host"];
+
+                        keyValuePairs.Remove("host");
+                    }
+
+                    if (keyValuePairs.ContainsKey("connection"))
+                    {
+                        keyValuePairs.Remove("connection");
+                    }
+
+                    if (keyValuePairs.ContainsKey("cookie"))
+                    {
+                        var cc = new CookieContainer();
+
+                        var carr = keyValuePairs["cookie"].Split(';');
+
+                        foreach (var sitem in carr)
+                        {
+                            var ckv = sitem.Split('=');
+
+                            if (ckv.Length == 2)
+                            {
+                                cc.Add(new Cookie(ckv[0].Trim(), ckv[1], "/", request.Host));
+                            }
+                            else
+                            {
+                                cc.Add(new Cookie(ckv[0].Trim(), ""));
+                            }
+                        }
+
+                        request.CookieContainer = cc;
+
+                        keyValuePairs.Remove("cookie");
+                    }
+
+                    foreach (var item in keyValuePairs)
+                    {
+                        try
+                        {
+                            request.Headers.Set(item.Key, item.Value);
+                        }
+                        catch (Exception exp)
+                        {
+
+                        }
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

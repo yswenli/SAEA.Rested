@@ -15,6 +15,8 @@
 *版 本 号： V1.0.0.0
 *描    述：
 *****************************************************************************/
+using SAEA.Common;
+using SAEA.Http;
 using SAEA.MVC;
 using SAEA.RESTED.Libs;
 using SAEA.RESTED.Models;
@@ -39,7 +41,7 @@ namespace SAEA.RESTED.Controllers
             var result = "0";
             if (!string.IsNullOrWhiteSpace(groupName))
             {
-                groupName = SAEA.Http.Base.HttpUtility.UrlDecode(groupName);
+                groupName = HttpUtility.UrlDecode(groupName);
 
                 if (groupName.Length <= 13)
                 {
@@ -55,23 +57,28 @@ namespace SAEA.RESTED.Controllers
             return Content(RecordDataHelper.GetGroups());
         }
 
-        public ActionResult AddItem(string groupID, string title, string method, string url, string json)
+        public ActionResult AddItem(string groupID, string title, string method, string url, string header, string json)
         {
             var result = "0";
             if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(title) && !string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
             {
-                title = SAEA.Http.Base.HttpUtility.UrlDecode(title);
+                title = HttpUtility.UrlDecode(title);
 
-                url = SAEA.Http.Base.HttpUtility.UrlDecode(url);
+                url = HttpUtility.UrlDecode(url);
 
                 if (title.Length <= 15 && url.Length <= 2083)
                 {
-                    if (!string.IsNullOrWhiteSpace(json))
+                    if (!string.IsNullOrWhiteSpace(header))
                     {
-                        json = SAEA.Http.Base.HttpUtility.UrlDecode(json);
+                        header = HttpUtility.UrlDecode(header);
                     }
 
-                    RecordDataHelper.AddItem(groupID, title, method, url, json);
+                    if (!string.IsNullOrWhiteSpace(json))
+                    {
+                        json = HttpUtility.UrlDecode(json);
+                    }
+
+                    RecordDataHelper.AddItem(groupID, title, method, url, header, json);
 
                     result = "1";
                 }
@@ -84,7 +91,7 @@ namespace SAEA.RESTED.Controllers
             var result = "0";
             if (!string.IsNullOrWhiteSpace(groupID) && !string.IsNullOrWhiteSpace(groupName))
             {
-                groupName = SAEA.Http.Base.HttpUtility.UrlDecode(groupName);
+                groupName = HttpUtility.UrlDecode(groupName);
 
                 RecordDataHelper.UpdateGroup(groupID, groupName);
 
@@ -149,7 +156,7 @@ namespace SAEA.RESTED.Controllers
             {
                 if (!string.IsNullOrWhiteSpace(json))
                 {
-                    json = SAEA.Http.Base.HttpUtility.UrlDecode(json);
+                    json = HttpUtility.UrlDecode(json);
 
                     var rd = Deserialize<RecordData>(json);
 
@@ -176,27 +183,33 @@ namespace SAEA.RESTED.Controllers
             return Content(Program.VersionType);
         }
 
+
+
         public ActionResult Request(string method, string url, string data)
         {
             var result = string.Empty;
 
             if (!string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
             {
-                url = SAEA.Http.Base.HttpUtility.UrlDecode(url);
+                url = HttpUtility.UrlDecode(url);
             }
+
+            var requestData = new RequestData();
 
             if (!string.IsNullOrWhiteSpace(data))
             {
-                data = SAEA.Http.Base.HttpUtility.UrlDecode(data);
+                data = HttpUtility.UrlDecode(data);
+
+                requestData = SerializeHelper.Deserialize<RequestData>(data);
             }
 
             if (method == "POST")
             {
-                result = WebClientHelper.Post(url, data);
+                result = WebClientHelper.Post(url, requestData.Header, requestData.Body);
             }
             else
             {
-                result = WebClientHelper.Get(url);
+                result = WebClientHelper.Get(url, requestData.Header);
             }
 
             return Content(result);

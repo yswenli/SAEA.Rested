@@ -46,7 +46,7 @@ $(function () {
     //输入框
     $("#urlTxt").click(() => {
 
-        $("#detailed").html(`${$("#urlTxt").attr("data-title") === undefined ? "" : "<b>"+$("#urlTxt").attr("data-title")+":</b><br/>"}  ${$("#urlTxt").val()}`);
+        $("#detailed").html(`${$("#urlTxt").attr("data-title") === undefined ? "" : "<b>" + $("#urlTxt").attr("data-title") + ":</b><br/>"}  ${$("#urlTxt").val()}`);
 
         $("#detailed").show();
 
@@ -69,7 +69,12 @@ $(function () {
 
         var method = $("#methodSel").val();
         var url = $("#urlTxt").val();
-        var data = $("#dataTxt").val();
+
+        var header = $("#headerTxt").val();
+
+        var body = $("#dataTxt").val();
+
+        var data = JSON.stringify({ "header": header, "body": body });
 
         $("#reTxt").val("");
         $("#alert-words").html("");
@@ -174,6 +179,7 @@ $(function () {
         var title = $("#addItemTxt").val();
         var method = $("#methodSel").val();
         var url = $("#urlTxt").val();
+        var header = $("#headerTxt").val();
         var json = $("#dataTxt").val();
 
         if (groupID === "") {
@@ -189,7 +195,7 @@ $(function () {
             return;
         }
 
-        $.post("/home/additem", `groupID=${groupID}&title=${encodeURIComponent(title)}&method=${method}&url=${encodeURIComponent(url)}&json=${encodeURIComponent(json)}`, function (data) {
+        $.post("/home/additem", `groupID=${groupID}&title=${encodeURIComponent(title)}&method=${method}&url=${encodeURIComponent(url)}&header=${encodeURIComponent(header)}&json=${encodeURIComponent(json)}`, function (data) {
             $.get("/home/getlist", "groupID=" + groupID, function (data) {
                 $("#accordion").html(data);
                 $("#addItemModal").modal('hide');
@@ -259,6 +265,7 @@ $(function () {
 
                 if (data !== undefined || data !== "") {
                     $("#methodSel").val(data.Method).change();
+                    $("#headerTxt").val(data.RequestHeader);
                     $("#dataTxt").val(data.RequestJson);
                     $("#urlTxt").addClass("flicker");
                     setTimeout(function () {
