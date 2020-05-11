@@ -30,7 +30,7 @@ namespace SAEA.RESTED.Controllers
         {
             string groupID = string.Empty;
 
-            HttpContext.Request.Parmas.TryGetValue("groupID", out groupID);
+            HttpContext.Current.Request.Parmas.TryGetValue("groupID", out groupID);
 
             return Content(RecordDataHelper.GetRightList(groupID));
         }

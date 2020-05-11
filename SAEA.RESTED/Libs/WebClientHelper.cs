@@ -25,15 +25,24 @@ using System.Text;
 
 namespace SAEA.RESTED.Libs
 {
-    public class WebClientHelper
+    public static class WebClientHelper
     {
+
+        static WebClientHelper()
+        {
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
+            ServicePointManager.Expect100Continue = true;
+        }
+
+
         public static string Get(string url, string header)
         {
             try
             {
-                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
                 Encoding encoding = Encoding.UTF8;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None;
                 request.Method = "GET";
                 SetHeaders(header, ref request);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
@@ -52,9 +61,9 @@ namespace SAEA.RESTED.Libs
         {
             try
             {
-                ServicePointManager.ServerCertificateValidationCallback = new RemoteCertificateValidationCallback(CheckValidationResult);
                 Encoding encoding = Encoding.UTF8;
                 HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+                request.AutomaticDecompression = DecompressionMethods.Deflate | DecompressionMethods.GZip | DecompressionMethods.None;
                 request.Method = "POST";
                 SetHeaders(header, ref request);
                 byte[] buffer = encoding.GetBytes(json);
@@ -91,8 +100,18 @@ namespace SAEA.RESTED.Libs
                 {
                     foreach (var item in arr)
                     {
-                        var kvs = item.Split(':');
-                        keyValuePairs[kvs[0].ToLower()] = string.IsNullOrEmpty(kvs[1]) ? "" : kvs[1].Trim();
+                        if (!string.IsNullOrWhiteSpace(item) && item.Substring(0, 1) == ":")
+                        {
+                            var index = item.LastIndexOf(":");
+                            var k = item.Substring(0, index);
+                            var v = item.Substring(index + 1);
+                            keyValuePairs[k] = string.IsNullOrEmpty(v) ? "" : v.Trim();
+                        }
+                        else
+                        {
+                            var kvs = item.Split(':');
+                            keyValuePairs[kvs[0].ToLower()] = string.IsNullOrEmpty(kvs[1]) ? "" : kvs[1].Trim();
+                        }                        
                     }
 
                     if (keyValuePairs.ContainsKey("accept"))
@@ -126,6 +145,12 @@ namespace SAEA.RESTED.Libs
                     if (keyValuePairs.ContainsKey("connection"))
                     {
                         keyValuePairs.Remove("connection");
+                    }
+
+                    if (keyValuePairs.ContainsKey("referer"))
+                    {
+                        request.Referer = keyValuePairs["referer"];
+                        keyValuePairs.Remove("referer");
                     }
 
                     if (keyValuePairs.ContainsKey("cookie"))
