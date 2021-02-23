@@ -36,8 +36,9 @@ namespace SAEA.RESTED.Libs
         }
 
 
-        public static string Get(string url, string header)
+        public static string Get(string url, string header, out string reHeaders)
         {
+            reHeaders = "";
             try
             {
                 Encoding encoding = Encoding.UTF8;
@@ -46,6 +47,7 @@ namespace SAEA.RESTED.Libs
                 request.Method = "GET";
                 SetHeaders(header, ref request);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                reHeaders = GetHeaders(response);
                 using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
                     return reader.ReadToEnd();
@@ -57,8 +59,9 @@ namespace SAEA.RESTED.Libs
             }
         }
 
-        public static string Post(string url, string header, string json)
+        public static string Post(string url, string header, string json, out string reHeaders)
         {
+            reHeaders = "";
             try
             {
                 Encoding encoding = Encoding.UTF8;
@@ -70,6 +73,7 @@ namespace SAEA.RESTED.Libs
                 request.ContentLength = buffer.Length;
                 request.GetRequestStream().Write(buffer, 0, buffer.Length);
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                reHeaders = GetHeaders(response);
                 using (StreamReader reader = new StreamReader(response.GetResponseStream(), Encoding.UTF8))
                 {
                     return reader.ReadToEnd();
@@ -79,7 +83,6 @@ namespace SAEA.RESTED.Libs
             {
                 return ex.Message;
             }
-
         }
 
         private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors sslPolicyErrors)
@@ -111,7 +114,7 @@ namespace SAEA.RESTED.Libs
                         {
                             var kvs = item.Split(':');
                             keyValuePairs[kvs[0].ToLower()] = string.IsNullOrEmpty(kvs[1]) ? "" : kvs[1].Trim();
-                        }                        
+                        }
                     }
 
                     if (keyValuePairs.ContainsKey("accept"))
@@ -196,6 +199,16 @@ namespace SAEA.RESTED.Libs
             {
 
             }
+        }
+
+        static string GetHeaders(HttpWebResponse response)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (string key in response.Headers)
+            {
+                sb.AppendLine($"{key}:{response.Headers[key]}");
+            }
+            return sb.ToString();
         }
     }
 }

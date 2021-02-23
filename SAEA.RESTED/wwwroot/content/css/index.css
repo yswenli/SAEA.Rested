@@ -188,6 +188,7 @@ a[aria-expanded="false"] {
 
     a[aria-expanded="false"] span.badge {
         margin-left: 3px;
+        vertical-align: top;
     }
 
 .group-edit, .group-delete {
@@ -301,18 +302,18 @@ a[aria-expanded="false"] {
     }
 }
 
-body::-webkit-scrollbar, .right-list::-webkit-scrollbar, .search-list::-webkit-scrollbar {
+body::-webkit-scrollbar, .right-list::-webkit-scrollbar, .search-list::-webkit-scrollbar, textarea::-webkit-scrollbar {
     width: 10px;
     height: 1px;
 }
 
-body::-webkit-scrollbar-thumb, .right-list::-webkit-scrollbar-thumb, .search-list::-webkit-scrollbar-thumb {
+body::-webkit-scrollbar-thumb, .right-list::-webkit-scrollbar-thumb, .search-list::-webkit-scrollbar-thumb, textarea::-webkit-scrollbar-thumb {
     border-radius: 10px;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     background-image: radial-gradient(#fff,rgba(0,0,0,0.2));
 }
 
-body::-webkit-scrollbar-track, .right-list::-webkit-scrollbar-track, .search-list::-webkit-scrollbar-track {
+body::-webkit-scrollbar-track, .right-list::-webkit-scrollbar-track, .search-list::-webkit-scrollbar-track, textarea::-webkit-scrollbar-track {
     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
     border-radius: 10px;
     background: #EDEDED;

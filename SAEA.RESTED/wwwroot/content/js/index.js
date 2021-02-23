@@ -76,7 +76,8 @@ $(function () {
 
         var data = JSON.stringify({ "header": header, "body": body });
 
-        $("#reTxt").val("");
+        $("#reHeaderTxt").val("");
+        $("#reBodyTxt").val("");
         $("#alert-words").html("");
 
 
@@ -85,22 +86,24 @@ $(function () {
         $.ajax({
             type: "POST",
             url: "/home/request",
-            contentType: "application/json; charset=utf-8",
+            contentType: "application/json",
             data: JSON.stringify(jsonData),
-            dataType: "json",
+            dataType: "JSON",
             success: function (message) {
 
                 var now = (new Date()).getTime() - begin;
 
                 $("#alert-words").html(GetTimeString("yyyy-MM-dd hh:mm:ss", new Date()) + " 本次请求用时：" + now / 1000 + "秒");
 
-                $("#reTxt").addClass("shake");
+                $("#reBodyTxt").addClass("shake");
 
                 $('#loading').modal('hide');
 
                 setTimeout(function () {
-
-                    $("#reTxt").val(JSON.stringify(message, null, 4)).removeClass("shake");
+                    if (message.Code === 1) {
+                        $("#reHeaderTxt").val(message.Headers);
+                    }
+                    $("#reBodyTxt").val(JSON.stringify(JSON.parse(message.Body), null, 4)).removeClass("shake");
 
                 }, 1000);
             },

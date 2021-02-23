@@ -188,7 +188,7 @@ namespace SAEA.RESTED.Controllers
 
         public ActionResult Request(string method, string url, string data)
         {
-            var result = string.Empty;
+            ResponseResult result = new ResponseResult();
 
             if (!string.IsNullOrWhiteSpace(method) && !string.IsNullOrWhiteSpace(url))
             {
@@ -204,16 +204,21 @@ namespace SAEA.RESTED.Controllers
                 requestData = SerializeHelper.Deserialize<RequestData>(data);
             }
 
+            string headers = "";
+            string body = "";
+
             if (method == "POST")
             {
-                result = WebClientHelper.Post(url, requestData.Header, requestData.Body);
+                body = WebClientHelper.Post(url, requestData.Header, requestData.Body,out headers);
             }
             else
             {
-                result = WebClientHelper.Get(url, requestData.Header);
+                body = WebClientHelper.Get(url, requestData.Header, out headers);
             }
-
-            return Content(result);
+            result.Headers = headers;
+            result.Body = body;
+            result.Code = string.IsNullOrEmpty(headers) ? 0 : 1;
+            return Json(result);
         }
     }
 }
