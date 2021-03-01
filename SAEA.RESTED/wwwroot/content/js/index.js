@@ -103,7 +103,12 @@ $(function () {
                     if (message.Code === 1) {
                         $("#reHeaderTxt").val(message.Headers);
                     }
-                    $("#reBodyTxt").val(JSON.stringify(JSON.parse(message.Body), null, 4)).removeClass("shake");
+                    try {
+                        $("#reBodyTxt").val(JSON.stringify(JSON.parse(message.Body), null, 4)).removeClass("shake");
+                    }
+                    catch {
+                        $("#reBodyTxt").val(message.Body).removeClass("shake");
+                    }
 
                 }, 1000);
             },
