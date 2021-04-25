@@ -49,11 +49,11 @@ namespace SAEA.RESTED
 
             mvcApplication.Start();
 
-            ConsoleHelper.WriteLine("SAEA.RESTED 服务已启动，请在浏览器中输入 \r\n\t\t\t http://localhost:39654/");
+            ConsoleHelper.WriteLine($"SAEA.RESTED 服务已启动，请在浏览器中输入 \r\n\t\t\t http://localhost:{mvcApplicationConfig.Port}/");
 
             ConsoleHelper.WriteLine("回车结束服务");
 
-            Process.Start("http://localhost:39654/");
+            Process.Start($"http://localhost:{mvcApplicationConfig.Port}/");
 
             Console.ReadLine();
         }
