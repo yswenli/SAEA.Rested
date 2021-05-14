@@ -18,6 +18,7 @@
 using SAEA.Common.IO;
 using SAEA.Common.Serialization;
 using SAEA.RESTED.Models;
+
 using System;
 using System.IO;
 using System.Linq;
@@ -35,35 +36,49 @@ namespace SAEA.RESTED.Libs
         static string searchItem = "<div data-group=\"@groupID\" data-id=\"@itemID\"><p class=\"search-item-title\">@itemTitle</p><p>@itemUrl</p></div>";
 
 
-        static string path = Path.Combine(Directory.GetCurrentDirectory(), "SAEA.RESTED.json");
+        static string path = Path.Combine(PathHelper.GetCurrentPath(), "SAEA.RESTED.json");
 
         static RecordData RecordData;
+
+        static object _locker = new object();
 
 
         public static RecordData Read()
         {
-            RecordData result = null;
-
-            try
+            lock (_locker)
             {
-                var json = FileHelper.ReadString(path);
+                RecordData result = null;
 
-                result = SerializeHelper.Deserialize<RecordData>(json);
+                try
+                {
+                    var json = FileHelper.ReadString(path);
+
+                    result = SerializeHelper.Deserialize<RecordData>(json);
+                }
+                catch { }
+
+                return result;
             }
-            catch { }
-
-            return result;
         }
 
         public static void Write(RecordData data)
         {
-            try
+            lock (_locker)
             {
-                var json = SerializeHelper.Serialize(data);
+                try
+                {
+                    var json = SerializeHelper.Serialize(data);
 
-                FileHelper.WriteString(path, json);
+                    if (File.Exists(path))
+                    {
+                        File.Delete(path);
+                    }
+
+                    FileHelper.WriteString(path, json);
+                }
+                catch { }
             }
-            catch { }
+
         }
 
         public static string GetID()
